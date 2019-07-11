@@ -73,6 +73,23 @@
                                                     <outlet property="emojiLabel" destination="6p6-ms-gIA" id="fyG-uU-WJB"/>
                                                 </connections>
                                             </collectionViewCell>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DropPlaceholderCell" id="wy5-mF-h7X" customClass="CollectionViewCell">
+                                                <rect key="frame" x="90" y="0.0" width="80" height="80"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5dM-ve-fGe">
+                                                            <rect key="frame" x="30" y="30" width="20" height="20"/>
+                                                        </activityIndicatorView>
+                                                    </subviews>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstItem="5dM-ve-fGe" firstAttribute="centerX" secondItem="wy5-mF-h7X" secondAttribute="centerX" id="Lnb-Mj-afy"/>
+                                                    <constraint firstItem="5dM-ve-fGe" firstAttribute="centerY" secondItem="wy5-mF-h7X" secondAttribute="centerY" id="Rje-fn-Dea"/>
+                                                </constraints>
+                                            </collectionViewCell>
                                         </cells>
                                     </collectionView>
                                 </subviews>
