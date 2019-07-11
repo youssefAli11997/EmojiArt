@@ -50,7 +50,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EmojiCell" id="aoJ-sm-FkH">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EmojiCell" id="aoJ-sm-FkH" customClass="EmojiCollectionViewCell" customModule="EmojiArt" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -69,6 +69,9 @@
                                                     <constraint firstItem="6p6-ms-gIA" firstAttribute="centerY" secondItem="aoJ-sm-FkH" secondAttribute="centerY" id="8AT-ai-TOI"/>
                                                     <constraint firstItem="6p6-ms-gIA" firstAttribute="centerX" secondItem="aoJ-sm-FkH" secondAttribute="centerX" id="ACl-Xh-kK1"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outlet property="emojiLabel" destination="6p6-ms-gIA" id="fyG-uU-WJB"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
