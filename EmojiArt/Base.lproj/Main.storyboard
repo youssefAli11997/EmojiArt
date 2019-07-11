@@ -97,7 +97,13 @@
                             <outlet property="delegate" destination="JVe-b9-2cI" id="yA6-5B-RC3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="usF-Uu-8dr"/>
+                    <navigationItem key="navigationItem" id="usF-Uu-8dr">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gv1-HQ-p2A">
+                            <connections>
+                                <action selector="newEmojiArt:" destination="JVe-b9-2cI" id="6kO-q7-kZ4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dyg-is-2Jc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
