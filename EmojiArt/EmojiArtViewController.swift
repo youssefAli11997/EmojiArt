@@ -19,6 +19,7 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate {
     }
     
     @IBOutlet weak var emojiArtView: EmojiArtView!
+    @IBOutlet weak var emojiCollectionView: UICollectionView!
     
     
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
