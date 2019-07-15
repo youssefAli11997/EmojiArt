@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+class EmojiArtViewController: UIViewController {
     
     var emojis = "😍🐢🐠🐧🦉🐴🐼🐵🐰🎩🌼☁️🌍⛪️🖨🚗💊🤡🏃‍♀️🐋🐳🦋🐌🐅🐄🦏🐑".map {String($0)}
     private var imageFetcher: ImageFetcher!
@@ -21,6 +21,7 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UICol
     }
     
     @IBOutlet weak var emojiArtView: EmojiArtView!
+    
     @IBOutlet weak var emojiCollectionView: UICollectionView! {
         didSet {
             emojiCollectionView.dataSource = self
@@ -30,7 +31,40 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UICol
         }
     }
     
+    private func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
+        if let emojiCell = emojiCollectionView.cellForItem(at: indexPath) as? EmojiCollectionViewCell {
+            let emojiAttributedString = NSAttributedString(string: emojiCell.emojiLabel?.text ?? "")
+            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: emojiAttributedString))
+            dragItem.localObject = emojiAttributedString
+            return [dragItem]
+        }
+        return []
+    }
     
+    private func presentBadUrlWarning() {
+        let alert = UIAlertController(
+            title: "Image Transfer Failed",
+            message: "Couldn't transfer image from its source",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(
+            title: "Keep Warning",
+            style: .default))
+        
+        alert.addAction(UIAlertAction(
+            title: "Stop Warning",
+            style: .destructive,
+            handler: { action in
+                self.suppressBadURLWarnings = true
+            }
+        ))
+        
+        present(alert, animated: true)
+    }
+}
+
+extension EmojiArtViewController: UIDropInteractionDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: NSURL.self) && session.canLoadObjects(ofClass: UIImage.self)
     }
@@ -132,37 +166,5 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UICol
                 }
             }
         }
-    }
-    
-    private func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
-        if let emojiCell = emojiCollectionView.cellForItem(at: indexPath) as? EmojiCollectionViewCell {
-            let emojiAttributedString = NSAttributedString(string: emojiCell.emojiLabel?.text ?? "")
-            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: emojiAttributedString))
-            dragItem.localObject = emojiAttributedString
-            return [dragItem]
-        }
-        return []
-    }
-    
-    private func presentBadUrlWarning() {
-        let alert = UIAlertController(
-            title: "Image Transfer Failed",
-            message: "Couldn't transfer image from its source",
-            preferredStyle: .alert
-        )
-        
-        alert.addAction(UIAlertAction(
-            title: "Keep Warning",
-            style: .default))
-        
-        alert.addAction(UIAlertAction(
-            title: "Stop Warning",
-            style: .destructive,
-            handler: { action in
-                self.suppressBadURLWarnings = true
-            }
-        ))
-        
-        present(alert, animated: true)
     }
 }
