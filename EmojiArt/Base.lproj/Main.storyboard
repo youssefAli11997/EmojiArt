@@ -6,6 +6,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,12 +32,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dvn-YQ-8Fb">
-                                <rect key="frame" x="0.0" y="20" width="703.5" height="748"/>
+                                <rect key="frame" x="0.0" y="20" width="703.5" height="698"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xh-D1-M0X" customClass="EmojiArtView" customModule="EmojiArt" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="88" width="703.5" height="660"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mak-Ah-Sjo">
                                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="80"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -92,6 +89,10 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xh-D1-M0X" customClass="EmojiArtView" customModule="EmojiArt" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="88" width="703.5" height="610"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -114,6 +115,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="Inspect" id="qhR-8u-7RB">
+                            <connections>
+                                <segue destination="OL6-f6-iF5" kind="presentation" identifier="Show Document Info" id="TdY-ht-kOs"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="dropZone" destination="8bC-Xf-vdC" id="oCQ-cr-7xF"/>
                         <outlet property="emojiArtView" destination="4Xh-D1-M0X" id="Hoa-D5-ILL"/>
@@ -124,20 +133,82 @@
             </objects>
             <point key="canvasLocation" x="397.8515625" y="117.96875"/>
         </scene>
-        <!--View Controller-->
+        <!--Document Info View Controller-->
         <scene sceneID="IL2-8W-Dy9">
             <objects>
-                <viewController id="OL6-f6-iF5" sceneMemberID="viewController">
+                <viewController id="OL6-f6-iF5" customClass="DocumentInfoViewController" customModule="EmojiArt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8GX-YK-IPr">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="84v-fV-wDE">
+                                <rect key="frame" x="342.5" y="248.5" width="339" height="271"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kLG-PO-2GC">
+                                        <rect key="frame" x="0.0" y="0.0" width="339" height="214"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="kLG-PO-2GC" secondAttribute="height" multiplier="339:214" id="A88-oe-OZT"/>
+                                            <constraint firstAttribute="width" constant="339" id="yH9-jX-tZm"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rCn-Ml-MuA">
+                                        <rect key="frame" x="59.5" y="222" width="220" height="49"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zHs-AW-pgO">
+                                                <rect key="frame" x="0.0" y="0.0" width="85" height="49"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oi5-YY-i5c">
+                                                        <rect key="frame" x="48" y="0.0" width="37" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created at:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1o-oK-Jcs">
+                                                        <rect key="frame" x="0.0" y="28.5" width="85" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Z4A-Ks-c6h">
+                                                <rect key="frame" x="93" y="0.0" width="127" height="49"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99 bytes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKe-Ca-Z2X">
+                                                        <rect key="frame" x="0.0" y="0.0" width="67.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11/15/17, 4:35pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9j-Vn-1nW">
+                                                        <rect key="frame" x="0.0" y="28.5" width="127" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="84v-fV-wDE" firstAttribute="centerY" secondItem="8GX-YK-IPr" secondAttribute="centerY" id="Jkc-ch-DGk"/>
+                            <constraint firstItem="84v-fV-wDE" firstAttribute="centerX" secondItem="8GX-YK-IPr" secondAttribute="centerX" id="ZKt-Jv-45u"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Yuu-yZ-qLq"/>
                     </view>
+                    <connections>
+                        <outlet property="createdLabel" destination="V9j-Vn-1nW" id="OHJ-6a-09f"/>
+                        <outlet property="sizeLabel" destination="HKe-Ca-Z2X" id="VS9-KJ-yZJ"/>
+                        <outlet property="thumbnailImageView" destination="kLG-PO-2GC" id="Qpv-63-MNx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HVD-bJ-1Kw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1084" y="118"/>
+            <point key="canvasLocation" x="1083.984375" y="117.96875"/>
         </scene>
         <!--Emoji Art Document Table View Controller-->
         <scene sceneID="7Op-i7-5sT">
