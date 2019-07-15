@@ -12,6 +12,7 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UICol
     
     var emojis = "😍🐢🐠🐧🦉🐴🐼🐵🐰🎩🌼☁️🌍⛪️🖨🚗💊🤡🏃‍♀️🐋🐳🦋🐌🐅🐄🦏🐑".map {String($0)}
     private var imageFetcher: ImageFetcher!
+    private var suppressBadURLWarnings = false
     
     @IBOutlet var dropZone: UIView! {
         didSet {
@@ -47,7 +48,17 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UICol
         
         session.loadObjects(ofClass: NSURL.self, completion: {nsurls in
             if let url = nsurls.first as? URL {
-                self.imageFetcher.fetch(url)
+                //self.imageFetcher.fetch(url)
+                DispatchQueue.global(qos: .userInitiated).async{
+                    if let imageData = try? Data(contentsOf: url.imageURL), let image = UIImage(data: imageData) {
+                        DispatchQueue.main.async {
+                            self.emojiArtView.backgroundImage = image
+                        }
+                    }
+                    else if !self.suppressBadURLWarnings {
+                        self.presentBadUrlWarning()
+                    }
+                }
             }
         })
         
@@ -131,5 +142,27 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate, UICol
             return [dragItem]
         }
         return []
+    }
+    
+    private func presentBadUrlWarning() {
+        let alert = UIAlertController(
+            title: "Image Transfer Failed",
+            message: "Couldn't transfer image from its source",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(
+            title: "Keep Warning",
+            style: .default))
+        
+        alert.addAction(UIAlertAction(
+            title: "Stop Warning",
+            style: .destructive,
+            handler: { action in
+                self.suppressBadURLWarnings = true
+            }
+        ))
+        
+        present(alert, animated: true)
     }
 }
