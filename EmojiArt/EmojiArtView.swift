@@ -8,9 +8,19 @@
 
 import UIKit
 
+protocol EmojiArtViewDelegate: class {
+    func emojiArtViewDidChange(_ sender: EmojiArtView)
+}
+
+extension Notification.Name {
+    static let EmojiArtViewDidChange = Notification.Name(rawValue: "EmojiArtViewDidChange")
+}
+
 class EmojiArtView: UIView, UIDropInteractionDelegate {
 
     var backgroundImage: UIImage? { didSet { setNeedsDisplay() } }
+    
+    weak var delegate: EmojiArtViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,6 +45,8 @@ class EmojiArtView: UIView, UIDropInteractionDelegate {
             let dropPoint = session.location(in: self)
             for attributedString in providers as? [NSAttributedString] ?? [] {
                 self.addLabel(with: attributedString, centeredAt: dropPoint)
+                self.delegate?.emojiArtViewDidChange(self)
+                NotificationCenter.default.post(name: .EmojiArtViewDidChange, object: self)
             }
         }
     }

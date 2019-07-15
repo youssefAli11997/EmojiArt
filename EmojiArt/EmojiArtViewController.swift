@@ -11,8 +11,12 @@ import UIKit
 class EmojiArtViewController: UIViewController {
     
     var emojis = "😍🐢🐠🐧🦉🐴🐼🐵🐰🎩🌼☁️🌍⛪️🖨🚗💊🤡🏃‍♀️🐋🐳🦋🐌🐅🐄🦏🐑".map {String($0)}
+    // uncomment this
+    //var document: EmojiArtDocument?
     private var imageFetcher: ImageFetcher!
     private var suppressBadURLWarnings = false
+    private var documentObserver: NSObjectProtocol?
+    private var emojiArtViewObserver: NSObjectProtocol?
     
     @IBOutlet var dropZone: UIView! {
         didSet {
@@ -20,7 +24,12 @@ class EmojiArtViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var emojiArtView: EmojiArtView!
+    @IBOutlet weak var emojiArtView: EmojiArtView! /*{
+        didSet {
+            emojiArtView.delegate = self
+        }
+    }
+ */
     
     @IBOutlet weak var emojiCollectionView: UICollectionView! {
         didSet {
@@ -29,6 +38,66 @@ class EmojiArtViewController: UIViewController {
             emojiCollectionView.dragDelegate = self
             emojiCollectionView.dropDelegate = self
         }
+    }
+    
+    // in an action called close, put these (video 13,14)
+    /*
+     if let observer = emojiArtViewObserver {
+        NotificationCenter.default.removeObserver(observer)
+     
+     }
+     
+     if document?.emojiArt != nil {
+        document.thumbnail = emojiArtView.snapshot
+     }
+     
+     dismiss(animated: true) {
+     self.docuemnt?.close { success in
+     if let observer = self.documentObserver {
+        NotificationCenter.default.removeObserver(observer)
+     }
+     */
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Uncomment during watching videos 13,14 (it just listens to changes and reports them)
+        /*
+         documentObserver = NotificationCenter.default.addObserver(
+            forName: UIDocument.stateChangedNotification,
+            object: document,
+            queue: OperationQueue.main,
+            using: { notificatiion in
+                print("documentState changed to: \(self.document!.documentState)")
+            }
+         )
+         
+         document?.open { success in
+             if success {
+                self.title = self.document.localizedName
+                self.emojiArt = self.document?.emojiArt
+                self.emojiArtViewObserver = NotificationCenter.default.addObserver(
+                    forName: .EmojiArtViewDidChange,
+                    object: self.emojiArtView,
+                    queue: OperationQueue.main,
+                    using: { notification in
+                        self.documentChanged()
+                    }
+                )
+             }
+         }
+         */
+    }
+    
+    // formerly known as save() action
+    func documentChanged() {
+        // Uncomment
+        /*
+        document?.emojiArt = emojiArt
+        if document?.emojiArt != nil {
+            document?.updateChangeCount(.done)
+        }
+         */
     }
     
     private func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
@@ -64,7 +133,16 @@ class EmojiArtViewController: UIViewController {
     }
 }
 
-extension EmojiArtViewController: UIDropInteractionDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+extension EmojiArtViewController: UIDropInteractionDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate/*, EmojiArtViewDelegate*/ {
+    
+    // EmojiArtView Delegate
+    
+    /*func emojiArtViewDidChange(_ sender: EmojiArtView) {
+        //documentChanged()
+    }*/
+    
+    // Drag and Drop Dele
+    
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: NSURL.self) && session.canLoadObjects(ofClass: UIImage.self)
     }

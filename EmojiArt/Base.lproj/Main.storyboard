@@ -124,6 +124,21 @@
             </objects>
             <point key="canvasLocation" x="397.8515625" y="117.96875"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="IL2-8W-Dy9">
+            <objects>
+                <viewController id="OL6-f6-iF5" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8GX-YK-IPr">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Yuu-yZ-qLq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HVD-bJ-1Kw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1084" y="118"/>
+        </scene>
         <!--Emoji Art Document Table View Controller-->
         <scene sceneID="7Op-i7-5sT">
             <objects>
