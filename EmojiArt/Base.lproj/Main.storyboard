@@ -115,13 +115,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Inspect" id="qhR-8u-7RB">
-                            <connections>
-                                <segue destination="OL6-f6-iF5" kind="presentation" identifier="Show Document Info" id="TdY-ht-kOs"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="dropZone" destination="8bC-Xf-vdC" id="oCQ-cr-7xF"/>
@@ -138,11 +132,11 @@
             <objects>
                 <viewController id="OL6-f6-iF5" customClass="DocumentInfoViewController" customModule="EmojiArt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8GX-YK-IPr">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="84v-fV-wDE">
-                                <rect key="frame" x="342.5" y="248.5" width="339" height="271"/>
+                                <rect key="frame" x="100.5" y="155.5" width="339" height="309"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kLG-PO-2GC">
                                         <rect key="frame" x="0.0" y="0.0" width="339" height="214"/>
@@ -190,6 +184,13 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smY-oN-7no">
+                                        <rect key="frame" x="101" y="279" width="137" height="30"/>
+                                        <state key="normal" title="Return to document"/>
+                                        <connections>
+                                            <action selector="done:" destination="OL6-f6-iF5" eventType="touchUpInside" id="uXV-fm-do6"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -203,6 +204,7 @@
                     <connections>
                         <outlet property="createdLabel" destination="V9j-Vn-1nW" id="OHJ-6a-09f"/>
                         <outlet property="sizeLabel" destination="HKe-Ca-Z2X" id="VS9-KJ-yZJ"/>
+                        <outlet property="thumbnailAspectRatio" destination="A88-oe-OZT" id="gZo-X2-HBZ"/>
                         <outlet property="thumbnailImageView" destination="kLG-PO-2GC" id="Qpv-63-MNx"/>
                     </connections>
                 </viewController>
@@ -243,11 +245,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="usF-Uu-8dr">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gv1-HQ-p2A">
-                            <connections>
-                                <action selector="newEmojiArt:" destination="JVe-b9-2cI" id="6kO-q7-kZ4"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="gv1-HQ-p2A">
+                                <connections>
+                                    <action selector="newEmojiArt:" destination="JVe-b9-2cI" id="6kO-q7-kZ4"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Inspect" id="N8G-nN-uBm">
+                                <connections>
+                                    <segue destination="OL6-f6-iF5" kind="presentation" identifier="Show Document Info" modalPresentationStyle="formSheet" id="ZQc-9Y-UhR"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dyg-is-2Jc" userLabel="First Responder" sceneMemberID="firstResponder"/>

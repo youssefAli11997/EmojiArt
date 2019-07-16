@@ -89,6 +89,16 @@ class EmojiArtViewController: UIViewController {
          */
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Show Document Info" {
+            if let destination = segue.destination.contents as? DocumentInfoViewController {
+                // Uncomment
+                //document?.thumbnail = emojiArtView.snapshot
+                //destination.document = document
+            }
+        }
+    }
+    
     // formerly known as save() action
     func documentChanged() {
         // Uncomment
