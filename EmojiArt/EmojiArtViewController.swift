@@ -8,11 +8,49 @@
 
 import UIKit
 
+extension EmojiArt.EmojiInfo {
+    init?(label: UILabel) {
+        if let attributedText = label.attributedText {
+            x = Int(label.center.x)
+            y = Int(label.center.y)
+            text = attributedText.string
+        }
+        else {
+            return nil
+        }
+    }
+}
+
 class EmojiArtViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
+    var emojiArt: EmojiArt? {
+        get {
+            if let url = emojiArtViewBackgroundImageURL {
+                let emojis = emojiArtView.subviews.compactMap { $0 as? UILabel }.compactMap { EmojiArt.EmojiInfo(label: $0)}
+                return EmojiArt(url: url, emojis: emojis)
+            }
+            return nil
+        }
+        set{
+            emojiArtView.backgroundImage = nil
+            emojiArtViewBackgroundImageURL = nil
+            emojiArtView.subviews.compactMap { $0 as? UILabel }.forEach { $0.removeFromSuperview() }
+            if let url = newValue?.url {
+                imageFetcher = ImageFetcher(fetch: url) { (url, image) in
+                    DispatchQueue.main.async {
+                        self.emojiArtView.backgroundImage = image
+                        self.emojiArtViewBackgroundImageURL = url
+                        newValue?.emojis.forEach {
+                            self.emojiArtView.addLabel(with: NSAttributedString(string: $0.text), centeredAt: CGPoint(x: $0.x, y: $0.y))
+                        }
+                    }
+                }
+            }
+        }
+    }
     
-    var emojiArt: EmojiArt?
     var emojis = "😍🐢🐠🐧🦉🐴🐼🐵🐰🎩🌼☁️🌍⛪️🖨🚗💊🤡🏃‍♀️🐋🐳🦋🐌🐅🐄🦏🐑".map {String($0)}
+    var emojiArtViewBackgroundImageURL: URL?
     // uncomment this
     //var document: EmojiArtDocument?
     private var imageFetcher: ImageFetcher!
@@ -179,7 +217,8 @@ extension EmojiArtViewController: UIDropInteractionDelegate, UICollectionViewDat
         imageFetcher = ImageFetcher() { (url, image) in
             DispatchQueue.main.async {
                 self.emojiArtView.backgroundImage = image
-            }
+                self.emojiArtViewBackgroundImageURL = url
+                }
         }
         
         session.loadObjects(ofClass: NSURL.self, completion: {nsurls in

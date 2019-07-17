@@ -16,7 +16,7 @@ extension Notification.Name {
     static let EmojiArtViewDidChange = Notification.Name(rawValue: "EmojiArtViewDidChange")
 }
 
-class EmojiArtView: UIView, UIDropInteractionDelegate {
+class EmojiArtView: UIView {
 
     var backgroundImage: UIImage? { didSet { setNeedsDisplay() } }
     
@@ -31,6 +31,27 @@ class EmojiArtView: UIView, UIDropInteractionDelegate {
         super.init(coder: aDecoder)
         setup()
     }
+    
+    func addLabel(with text: NSAttributedString, centeredAt centerPoint: CGPoint) {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.attributedText = text
+        label.sizeToFit()
+        label.center = centerPoint
+        addSubview(label)
+    }
+    
+    private func setup() {
+        addInteraction(UIDropInteraction(delegate: self))
+    }
+    
+    override func draw(_ rect: CGRect) {
+        backgroundImage?.draw(in: bounds)
+    }
+
+}
+
+extension EmojiArtView: UIDropInteractionDelegate {
     
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: NSAttributedString.self)
@@ -50,23 +71,4 @@ class EmojiArtView: UIView, UIDropInteractionDelegate {
             }
         }
     }
-    
-    private func addLabel(with text: NSAttributedString, centeredAt centerPoint: CGPoint) {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.attributedText = text
-        label.sizeToFit()
-        label.center = centerPoint
-        addSubview(label)
-    }
-    
-    private func setup() {
-        addInteraction(UIDropInteraction(delegate: self))
-    }
-    
-    
-    override func draw(_ rect: CGRect) {
-        backgroundImage?.draw(in: bounds)
-    }
-
 }
