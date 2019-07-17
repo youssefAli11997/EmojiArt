@@ -126,6 +126,18 @@ class EmojiArtViewController: UIViewController, UIPopoverPresentationControllerD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if let url = try? FileManager.default.url(
+            for: .documentDirectory,
+            in: .userDomainMask,
+            appropriateFor: nil,
+            create: true
+        ).appendingPathComponent("Untitled.json") {
+            
+            if let jsonData = try? Data(contentsOf: url) {
+                emojiArt = EmojiArt(json: jsonData)    
+            }
+            
+        }
         // Uncomment during watching videos 13,14 (it just listens to changes and reports them)
         /*
          documentObserver = NotificationCenter.default.addObserver(
