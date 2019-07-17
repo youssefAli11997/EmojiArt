@@ -99,6 +99,26 @@ class EmojiArtViewController: UIViewController, UIPopoverPresentationControllerD
      }
      */
     
+    
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        if let json = emojiArt?.json {
+            if let url = try? FileManager.default.url(
+                for: .documentDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: true
+            ).appendingPathComponent("Untitled.json") {
+                do {
+                    try json.write(to: url)
+                    print("saved successfully!")
+                }
+                catch let error {
+                    print("couldn't save \(error)")
+                }
+            }
+        }
+    }
+    
     @IBAction func close(bySegue: UIStoryboardSegue) {
         // Uncomment after implementing close action abovee (video 13,14)
         //close()
@@ -218,7 +238,7 @@ extension EmojiArtViewController: UIDropInteractionDelegate, UICollectionViewDat
             DispatchQueue.main.async {
                 self.emojiArtView.backgroundImage = image
                 self.emojiArtViewBackgroundImageURL = url
-                }
+            }
         }
         
         session.loadObjects(ofClass: NSURL.self, completion: {nsurls in
@@ -228,6 +248,7 @@ extension EmojiArtViewController: UIDropInteractionDelegate, UICollectionViewDat
                     if let imageData = try? Data(contentsOf: url.imageURL), let image = UIImage(data: imageData) {
                         DispatchQueue.main.async {
                             self.emojiArtView.backgroundImage = image
+                            self.emojiArtViewBackgroundImageURL = url
                         }
                     }
                     else if !self.suppressBadURLWarnings {
