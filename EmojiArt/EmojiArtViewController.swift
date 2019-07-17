@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EmojiArtViewController: UIViewController {
+class EmojiArtViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
     var emojis = "😍🐢🐠🐧🦉🐴🐼🐵🐰🎩🌼☁️🌍⛪️🖨🚗💊🤡🏃‍♀️🐋🐳🦋🐌🐅🐄🦏🐑".map {String($0)}
     // uncomment this
@@ -41,6 +41,7 @@ class EmojiArtViewController: UIViewController {
     }
     
     // in an action called close, put these (video 13,14)
+    // change its paramter: add: ? = nil (to make it optional with a default value of nil)
     /*
      if let observer = emojiArtViewObserver {
         NotificationCenter.default.removeObserver(observer)
@@ -58,6 +59,10 @@ class EmojiArtViewController: UIViewController {
      }
      */
     
+    @IBAction func close(bySegue: UIStoryboardSegue) {
+        // Uncomment after implementing close action abovee (video 13,14)
+        //close()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -95,8 +100,15 @@ class EmojiArtViewController: UIViewController {
                 // Uncomment
                 //document?.thumbnail = emojiArtView.snapshot
                 //destination.document = document
+                if let ppc = destination.popoverPresentationController {
+                    ppc.delegate = self
+                }
             }
         }
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
     
     // formerly known as save() action

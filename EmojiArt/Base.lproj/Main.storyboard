@@ -132,11 +132,11 @@
             <objects>
                 <viewController id="OL6-f6-iF5" customClass="DocumentInfoViewController" customModule="EmojiArt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8GX-YK-IPr">
-                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="84v-fV-wDE">
-                                <rect key="frame" x="100.5" y="155.5" width="339" height="309"/>
+                                <rect key="frame" x="18" y="160" width="339" height="347"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kLG-PO-2GC">
                                         <rect key="frame" x="0.0" y="0.0" width="339" height="214"/>
@@ -184,8 +184,17 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="09V-tD-CX1">
+                                        <rect key="frame" x="112.5" y="279" width="114" height="30"/>
+                                        <state key="normal" title="Close Document">
+                                            <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="eKE-W7-QTv" kind="unwind" unwindAction="closeBySegue:" id="fT7-p9-r18"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smY-oN-7no">
-                                        <rect key="frame" x="101" y="279" width="137" height="30"/>
+                                        <rect key="frame" x="101" y="317" width="137" height="30"/>
                                         <state key="normal" title="Return to document"/>
                                         <connections>
                                             <action selector="done:" destination="OL6-f6-iF5" eventType="touchUpInside" id="uXV-fm-do6"/>
@@ -203,12 +212,15 @@
                     </view>
                     <connections>
                         <outlet property="createdLabel" destination="V9j-Vn-1nW" id="OHJ-6a-09f"/>
+                        <outlet property="doneButton" destination="smY-oN-7no" id="tlb-AH-m7F"/>
                         <outlet property="sizeLabel" destination="HKe-Ca-Z2X" id="VS9-KJ-yZJ"/>
                         <outlet property="thumbnailAspectRatio" destination="A88-oe-OZT" id="gZo-X2-HBZ"/>
                         <outlet property="thumbnailImageView" destination="kLG-PO-2GC" id="Qpv-63-MNx"/>
+                        <outlet property="topLevelView" destination="84v-fV-wDE" id="pME-pc-4Hr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HVD-bJ-1Kw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="eKE-W7-QTv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1083.984375" y="117.96875"/>
         </scene>
@@ -251,6 +263,13 @@
                                     <action selector="newEmojiArt:" destination="JVe-b9-2cI" id="6kO-q7-kZ4"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Pop" id="JLD-qR-qGl">
+                                <connections>
+                                    <segue destination="OL6-f6-iF5" kind="popoverPresentation" identifier="Show Document Info" popoverAnchorBarButtonItem="JLD-qR-qGl" id="mcr-9f-j1s">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Inspect" id="N8G-nN-uBm">
                                 <connections>
                                     <segue destination="OL6-f6-iF5" kind="presentation" identifier="Show Document Info" modalPresentationStyle="formSheet" id="ZQc-9Y-UhR"/>
@@ -282,4 +301,7 @@
             <point key="canvasLocation" x="-326.3671875" y="879.6875"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="mcr-9f-j1s"/>
+    </inferredMetricsTieBreakers>
 </document>
