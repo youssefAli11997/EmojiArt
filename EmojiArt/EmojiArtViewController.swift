@@ -10,6 +10,8 @@ import UIKit
 
 class EmojiArtViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
+    
+    var emojiArt: EmojiArt?
     var emojis = "😍🐢🐠🐧🦉🐴🐼🐵🐰🎩🌼☁️🌍⛪️🖨🚗💊🤡🏃‍♀️🐋🐳🦋🐌🐅🐄🦏🐑".map {String($0)}
     // uncomment this
     //var document: EmojiArtDocument?
